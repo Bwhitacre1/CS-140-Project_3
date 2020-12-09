@@ -11,7 +11,7 @@ PremiumChecking::PremiumChecking(std::string firstName, std::string lastName) {
 	this->lastName = lastName;
 }
 
-void withdraw(unsigned long long amount) {
+void PremiumChecking::withdraw(unsigned long long amount) {
 if (Account::balance <= amount) {
 		if (Account::balance - amount <= -200) {
 			std::cout << "Unable to withdraw due to low funds" << std::endl;

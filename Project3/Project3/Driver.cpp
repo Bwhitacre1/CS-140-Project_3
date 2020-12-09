@@ -145,7 +145,7 @@ int main() {
 			}
 		}
 
-		else {
+		else if (userInput > 5) {
 			std::cout << "Please select a number from the menu!" << std::endl;
 		}
 
