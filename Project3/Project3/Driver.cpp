@@ -4,11 +4,19 @@
 #include <random>
 
 #include "Checking.h"
+#include "Savings.h"
+#include "PremiumChecking.h"
 
 int intRandomNumberGenerator(int start, int end) {
 	std::random_device randNum;
 	std::uniform_int_distribution<int> dist(start, end);
 	return dist(randNum);
+}
+
+double doubleRandomNumberGenerator(double start, double end)
+{
+    double f = (double)rand() / RAND_MAX;
+    return start + f * (end - start);
 }
 unsigned long long longRandomNumberGenerator(unsigned long long start, unsigned long long end) {
 	std::random_device randNum;
@@ -56,26 +64,78 @@ int main() {
 
 			while (amountOfAccounts > 0) {
 
-				Account* checkingAcount = new Checking;
+				Checking* checkingAccount = new Checking;
 
-				checkingAcount->setFirstName(firstNames[intRandomNumberGenerator(0, firstNames.size() - 1)]);
+				checkingAccount->setFirstName(firstNames[intRandomNumberGenerator(0, firstNames.size() - 1)]);
 
-				checkingAcount->setLastName(lastNames[intRandomNumberGenerator(0, lastNames.size() - 1)]);
+				checkingAccount->setLastName(lastNames[intRandomNumberGenerator(0, lastNames.size() - 1)]);
 
-				checkingAcount->deposit(longRandomNumberGenerator(0, 10000000));
+				checkingAccount->deposit(longRandomNumberGenerator(0, 10000000));
 
-				checkingAcount->display();
+				checkingAccount->display();
 
-				vectorOfAccounts.push_back(checkingAcount);
+				vectorOfAccounts.push_back(checkingAccount);
 
 				amountOfAccounts -= 1;
 			}
 		}
 		else if (userInput == 2) {
 
+			int amountOfAccounts;
+
+			std::cout << "How many acounts would you like to create?  ";
+			std::cin.ignore();
+			std::cin >> amountOfAccounts;
+
+			while (amountOfAccounts > 0) {
+				
+				PremiumChecking* premiumAccount = new PremiumChecking;
+
+				premiumAccount->setFirstName(firstNames[intRandomNumberGenerator(0, firstNames.size() - 1)]);
+
+				premiumAccount->setLastName(lastNames[intRandomNumberGenerator(0, lastNames.size() - 1)]);
+
+				premiumAccount->deposit(longRandomNumberGenerator(0, 10000000));
+
+				premiumAccount->chargeMonthlyFee();
+
+				vectorOfAccounts.push_back(premiumAccount);
+
+				amountOfAccounts -= 1;
+
+				premiumAccount->display();
+
+			}
+
 		}
 
 		else if (userInput == 3) {
+			
+			int amountOfAccounts;
+
+			std::cout << "How many acounts would you like to create?  ";
+			std::cin.ignore();
+			std::cin >> amountOfAccounts;
+
+			while (amountOfAccounts > 0) {
+
+				Savings* savingsAccount = new Savings;
+
+				savingsAccount->setFirstName(firstNames[intRandomNumberGenerator(0, firstNames.size() - 1)]);
+
+				savingsAccount->setLastName(lastNames[intRandomNumberGenerator(0, lastNames.size() - 1)]);
+
+				savingsAccount->deposit(longRandomNumberGenerator(0, 10000000));
+
+				savingsAccount->setInterestRate(doubleRandomNumberGenerator(1.00, 10.00));
+
+				savingsAccount->display();
+
+				vectorOfAccounts.push_back(savingsAccount);
+
+				amountOfAccounts -= 1;
+
+			}
 
 		}
 
@@ -86,10 +146,9 @@ int main() {
 		}
 
 		else {
-			std::cout << "Please select a number from the menue!" << std::endl;
+			std::cout << "Please select a number from the menu!" << std::endl;
 		}
 
 	}
 
 }
-
